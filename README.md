@@ -4,7 +4,7 @@
 
 ```bash
 brew tap brienze1/tap
-brew install --cask quant
+brew install quant
 ```
 
 ## Updating

@@ -1,8 +1,8 @@
-name: Update Cask
+name: Update Formula
 
 on:
   repository_dispatch:
-    types: [update-cask]
+    types: [update-formula]
 
 permissions:
   contents: write
@@ -13,24 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Update Cask formula
+      - name: Update Formula
         run: |
           VERSION="${{ github.event.client_payload.version }}"
-          SHA_ARM64="${{ github.event.client_payload.sha256_arm64 }}"
-          SHA_AMD64="${{ github.event.client_payload.sha256_amd64 }}"
+          SHA256="${{ github.event.client_payload.sha256 }}"
 
-          sed -i "s|version \".*\"|version \"${VERSION}\"|" Casks/quant.rb
-
-          # Update arm64 sha (first occurrence)
-          sed -i "0,/sha256 \".*\"/{s|sha256 \".*\"|sha256 \"${SHA_ARM64}\"|}" Casks/quant.rb
-
-          # Update amd64 sha (second occurrence)
-          sed -i "0,/sha256 \"${SHA_ARM64}\"/! {0,/sha256 \".*\"/ s|sha256 \".*\"|sha256 \"${SHA_AMD64}\"|}" Casks/quant.rb
+          sed -i "s|url \".*\"|url \"https://github.com/brienze1/quant/archive/refs/tags/${VERSION}.tar.gz\"|" Formula/quant.rb
+          sed -i "s|sha256.*|sha256 \"${SHA256}\"|" Formula/quant.rb
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Casks/quant.rb
+          git add Formula/quant.rb
           git commit -m "Update quant to ${{ github.event.client_payload.version }}"
           git push
