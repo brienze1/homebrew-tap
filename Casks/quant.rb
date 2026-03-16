@@ -16,6 +16,7 @@ cask "quant" do
   homepage "https://github.com/brienze1/quant"
 
   app "quant.app"
+  binary "quant.app/Contents/MacOS/quant"
 
   zap trash: [
     "~/Library/Application Support/quant",
