@@ -1,8 +1,8 @@
 class Quant < Formula
   desc "Desktop application for quantitative development workflows"
   homepage "https://github.com/brienze1/quant"
-  url "https://github.com/brienze1/quant/archive/refs/tags/v3.1.14.tar.gz"
-  sha256 "22c4b7530c046f4b6973317166854f8ffc4239111d3b5a8407224f3291a745bb"
+  url "https://github.com/brienze1/quant/archive/refs/tags/v3.1.15.tar.gz"
+  sha256 "bf56d9f0436f4fc3fcf4697173ebeb4fe8bfa79a0cbeced26a712c9d70057d17"
   license "MIT"
 
   depends_on "go" => :build
