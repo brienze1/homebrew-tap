@@ -16,7 +16,10 @@ class Quant < Formula
       system "npm", "install", "--legacy-peer-deps"
     end
 
-    system wails, "build"
+    # Inject the release tag so the app reports its true version
+    # (GetVersion prefers this over the changelog's newest entry).
+    system wails, "build", "-ldflags",
+           "-X quant/internal/integration/entrypoint/controller.Version=v#{version}"
 
     if OS.mac?
       prefix.install "build/bin/quant.app"
